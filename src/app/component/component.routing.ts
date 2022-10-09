@@ -8,6 +8,9 @@ import { BadgeComponent } from './badge/badge.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from './table/table.component';
+import { StoriesComponent } from './stories/stories.component';
+import { StoriyDetailsComponent } from './storiy-details/storiy-details.component';
+import { AddStoryComponent } from './add-story/add-story.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -45,7 +48,20 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'buttons',
 				component: ButtonsComponent
-			}
+			},
+			{
+				path: 'stories',
+				component: StoriesComponent
+			},
+			{
+				path: 'story-details',
+				component: StoriyDetailsComponent
+			},
+			{
+				path: 'story-add-new',
+				component: AddStoryComponent
+			},
+
 		]
 	}
 ];

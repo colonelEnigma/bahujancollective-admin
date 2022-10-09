@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+// import { AddStoryComponent } from 'app/component/add-story/add-story.component';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 declare var $: any;
@@ -15,6 +16,7 @@ export class NavigationComponent implements AfterViewInit {
   public config: PerfectScrollbarConfigInterface = {};
 
   public showSearch = false;
+  closeModal: string = "";
 
   constructor(private modalService: NgbModal, public router: Router) {
   }
@@ -114,8 +116,20 @@ export class NavigationComponent implements AfterViewInit {
 
   ngAfterViewInit() { }
 
-  logout(){
-    console.log("ok")
+  logout() {
+    localStorage.clear();
     this.router.navigate(["/login"]);
   }
+
+  openAddStory() {
+    // this.modalService.open(AddStoryComponent);
+    // modalRef.componentInstance.lesson = lesson;
+  }
+
+  gotoAddStory(){
+    this.router.navigate(["/component/story-add-new"]);
+
+  }
+
+
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../user';
 import { AuthService } from '../auth.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -30,8 +31,13 @@ export class LoginComponent implements OnInit {
     if (this.authForm.invalid) {
       return;
     }
-    this.authService.signIn(this.authForm.value);
-    this.router.navigateByUrl('/dashboard');
+    this.authService.signIn(this.authForm.value).subscribe((data: HttpResponse<any>) => {
+      let tokn = data.headers.get('auth-token') ? data.headers.get('auth-token')?.toString() : null;
+      if (tokn) {
+        localStorage.setItem('ACCESS_TOKEN', tokn);
+        this.router.navigateByUrl('/dashboard');
+      }
+    });
   }
 
 }

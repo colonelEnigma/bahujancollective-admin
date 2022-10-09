@@ -1,0 +1,25 @@
+<h4 class="font-medium mb-3">Stories</h4>
+<!-- Row -->
+<div class="row">
+    <!-- column -->
+    <div class="col-lg-3 col-md-6" *ngFor="let item of allStories" (click)="goToStory(item )">
+        <!-- Card -->
+        <!-- ---------------------
+                      start Card title
+                  ---------------- -->
+        <div class="card">
+            <img class="card-img-top img-responsive" src="assets/images/bg/bg1.jpg" alt="Card image cap" />
+            <div class="card-body">
+                <h4 class="card-title">{{item.title}}</h4>
+                <p class="card-text">
+                    {{item.subtitle}}
+                </p>
+                <a href="javascript:void(0)" class="btn btn-primary">Read More</a>
+            </div>
+        </div>
+        <!-- ---------------------
+                      end Card title
+                  ---------------- -->
+        <!-- Card -->
+    </div>
+</div>

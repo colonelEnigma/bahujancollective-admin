@@ -1,0 +1,212 @@
+<form class="row" [formGroup]="addNewStoryForm" (ngSubmit)="onSubmit()">
+    <div class="col-12">
+        <div class="card w-100">
+            <div class="border-bottom p-2">
+                <h4 class="card-title mb-0">Main Section</h4>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="storytitle" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="storytitle" placeholder="Title" formControlName="title">
+            </div>
+        </div>
+        <div class="form-group row mt-2">
+            <label for="storysubtitle" class="col-sm-2 col-form-label">Sub Title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="storysubtitle" placeholder="Title"
+                    formControlName="subtitle">
+            </div>
+        </div>
+
+        <!-- //      ABOUT SECTION -->
+        <div formGroupName="about">
+            <div class="card w-100 mt-4">
+                <div class="border-bottom p-2">
+                    <h4 class="card-title mb-0">About Section</h4>
+                </div>
+            </div>
+
+            <div class="form-group row mt-2">
+                <label for="storyabouttitle" class="col-sm-2 col-form-label"> Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="storyabouttitle" placeholder="Title"
+                        formControlName="title">
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="storyaboutdescription" class="col-sm-2 col-form-label"> Description</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="storyaboutdescription" placeholder="Title"
+                        formControlName="description">
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="storyaboutsubdescription" class="col-sm-2 col-form-label">Sub Description</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="storyaboutsubdescription" placeholder="Title"
+                        formControlName="subDescription">
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="aboutstartdate" class="col-sm-2 col-form-label">Start Date</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="aboutstartdate" placeholder="Title"
+                        formControlName="startDate">
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="aboutenddate" class="col-sm-2 col-form-label">End Date</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="aboutenddate" placeholder="Title"
+                        formControlName="endDate">
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label for="aboutenote" class="col-sm-2 col-form-label">Note</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="aboutenote" placeholder="Title" formControlName="note">
+                </div>
+            </div>
+        </div>
+
+        <!-- REGISTRATION SECTION -->
+
+        <div formGroupName="registration">
+
+            <div class="card w-100 mt-4">
+                <div class="border-bottom p-2">
+                    <h4 class="card-title mb-0">Registration Section</h4>
+                </div>
+            </div>
+
+
+            <div class="form-group row mt-2">
+                <label for="storyregtitle" class="col-sm-2 col-form-label"> Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="storyregtitle" placeholder="Registration Title"
+                        formControlName="title">
+                </div>
+            </div>
+            <div formArrayName="events" class="mt-4 mb-4">
+                <div *ngFor="let eventsGroup of events?.controls; let i = index" [formGroupName]="i">
+                    <h3 class="mt-5 mb-3">Event - {{i + 1}}</h3>
+                    <div class="form-group row mt-2">
+                        <label for="storyregeventtitle" class="col-sm-2 col-form-label"> Event Title</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="storyregeventtitle" placeholder="Event Title"
+                                formControlName="title">
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="storyregeventstatus" class="col-sm-2 col-form-label"> Registration Status</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="storyregeventstatus"
+                                placeholder="Active/Inactive" formControlName="regisrationStatus">
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="storyregstartdate" class="col-sm-2 col-form-label"> Start Date</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="storyregstartdate"
+                                placeholder="Registration Start Date" formControlName="startDateTime">
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="storyregenddate" class="col-sm-2 col-form-label"> End Date</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="storyregenddate"
+                                placeholder="Registration End Date" formControlName="endDateTime">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-2" formArrayName="topics">
+                        <label for="storyregeventtopic" class="col-sm-2 col-form-label"> Topics </label>
+                        <div class="col-sm-10">
+                            <div class="input-group" *ngFor="let poi of topics(i)?.controls; let pi = index">
+                                <input type="text" class="form-control" id="storyregeventtopic"
+                                    placeholder="Additional topic" [formControlName]="pi">
+                                <button class="input-group-text" (click)="addTopics(i)"><i
+                                        class="bi bi-plus-circle-fill" style="color: green;"></i></button>
+                                <button class="input-group-text" disabled *ngIf="topics(i).length <= 1"
+                                    (click)="delTopic(i, pi)"><i class="bi bi-x-circle-fill"></i></button>
+                                <button class="input-group-text" *ngIf="topics(i).length > 1"
+                                    (click)="delTopic(i, pi)"><i class="bi bi-x-circle-fill"
+                                        style="color: red;"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group row mt-2">
+                        <label for="storyregeventhost" class="col-sm-2 col-form-label"> Hosts</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="storyregeventhost" placeholder="Event Host"
+                                formControlName="host">
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="storyregeventcoach" class="col-sm-2 col-form-label"> Coach</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="storyregeventcoach" placeholder="Event Coach"
+                                formControlName="coach">
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <label for="storyregeventlink" class="col-sm-2 col-form-label"> Link</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="storyregeventlink" placeholder="Event Link"
+                                formControlName="link">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger mt-2" [disabled]="events.length <= 1"
+                        (click)="delInput(i)">Delete Event-{{i+1}}</button>
+                </div>
+                <button (click)="addEvents()" class="btn btn-primary mt-4">Add New Event</button>
+            </div>
+
+        </div>
+
+        <!-- ADDITIONAL DETAILS SECTION -->
+
+        <div formGroupName="aditionalDetails">
+            <div class="card w-100 mt-4">
+                <div class="border-bottom p-2">
+                    <h4 class="card-title mb-0">Additional Details Section</h4>
+                </div>
+            </div>
+
+            <div class="form-group row mt-2">
+                <label for="storyadditionaldetaillabel" class="col-sm-2 col-form-label"> Label </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="storyadditionaldetaillabel"
+                        placeholder="Additional Detail Label" formControlName="lable">
+                </div>
+            </div>
+            <div class="form-group row mt-2" formArrayName="points">
+                <label for="storyadditionaldetailpoints" class="col-sm-2 col-form-label"> Points </label>
+                <div class="col-sm-10">
+                    <div class="input-group" *ngFor="let poi of points?.controls; let pi = index">
+                        <input type="text" class="form-control" id="storyadditionaldetailpoints"
+                            placeholder="Additional Points" [formControlName]="pi">
+                        <button class="input-group-text" (click)="addPoints()"><i class="bi bi-plus-circle-fill"
+                                style="color: green;"></i></button>
+                        <button class="input-group-text" disabled *ngIf="points.length <= 1" (click)="delPoint(pi)"><i
+                                class="bi bi-x-circle-fill"></i></button>
+                        <button class="input-group-text" *ngIf="points.length > 1" (click)="delPoint(pi)"><i
+                                class="bi bi-x-circle-fill" style="color: red;"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4 p-3">
+        Submit
+    </button>
+
+
+</form>

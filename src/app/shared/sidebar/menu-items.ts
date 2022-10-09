@@ -81,5 +81,13 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
+  },
+  {
+    path: '/component/stories',
+    title: 'Story',
+    icon: 'bi bi-journal',
+    class: '',
+    extralink: false,
+    submenu: []
   }
 ];

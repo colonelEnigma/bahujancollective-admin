@@ -1,0 +1,159 @@
+<div class="blog-single gray-bg">
+    <div class="container" *ngIf="dataLoaded | async">
+        <div class="row">
+            <div class="col-lg m-15px-tb">
+                <article class="article">
+                    <div class="article-img">
+                        <img src="https://via.placeholder.com/800x350/87CEFA/000000" title="" alt="">
+                    </div>
+                    <div class="article-title">
+                        <h6><a href="#">{{storyDetailsObj.title}}</a></h6>
+                        <h2>{{storyDetailsObj.subtitle}}</h2>
+                        <div class="media">
+                            <!-- <div class="avatar">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" title="" alt="">
+                            </div> -->
+                            <div class="media-body">
+                                <!-- <label>Rachel Roth</label> -->
+                                <span>{{storyDetailsObj.updatedAt | date:'fullDate'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <h6><a href="#">{{storyDetailsObj.about[0].title}}</a></h6>
+                        <!-- <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let item of storyDetailsObj.aditionalDetails[0].points">
+                                {{item}}</li>
+                        </ul> -->
+                        <blockquote>
+                            <p>{{storyDetailsObj.about[0].description}}</p>
+                        </blockquote>
+                        <p>{{storyDetailsObj.about[0].subDescription}}</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Dates</h4>
+                            <!-- <h5 class="card-subtitle text-muted">Overview of the projects</h5> -->
+                            <div class="table-responsive">
+                                <table class="table align-middle text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-dark font-medium fs-4">Start Date</th>
+                                            <th class="text-dark font-medium fs-4">End Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h5 class="mb-0 fw-normal">{{storyDetailsObj.about[0].startDate}}</h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="mb-0 fw-normal">{{storyDetailsObj.about[0].endDate}}</h5>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-content mt-5">
+                        <h6><a href="#">{{additionalDetails.lable}}</a></h6>
+                        <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let item of additionalDetails.points">
+                                {{item}}</li>
+                        </ul>
+                        <!-- <blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                            <p class="blockquote-footer">Someone famous in <cite title="Source Title">Dick
+                                    Grayson</cite></p>
+                        </blockquote> -->
+                    </div>
+                    <!-- <div class="nav tag-cloud">
+                        <a href="#">Design</a>
+                        <a href="#">Development</a>
+                        <a href="#">Travel</a>
+                        <a href="#">Web Design</a>
+                        <a href="#">Marketing</a>
+                        <a href="#">Research</a>
+                        <a href="#">Managment</a>
+                    </div> -->
+                </article>
+                <div class="widget widget-latest-post mt-5">
+                    <div class="widget-title">
+                        <h3>{{registrationDetails.title}}</h3>
+                    </div>
+                    <div class="widget-body mt-4" *ngFor="let item of registrationDetails.events; let i = index">
+                        <h5 class="mt-5">Event-{{i+1}}</h5>
+                        <div class="latest-post-aside media">
+                            <div class="lpa-left media-body">
+                                <div class="lpa-title">
+                                    <h5>Coach</h5>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table align-middle text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-dark font-medium fs-4"
+                                                            *ngFor="let itemc of item.coach">{{itemc}}</th>
+                                                        <!-- <th class="text-dark font-medium fs-4">End Date</th> -->
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="latest-post-aside media">
+                            <div class="lpa-left media-body">
+                                <div class="lpa-title">
+                                    <h5>Host</h5>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table align-middle text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-dark font-medium fs-4"
+                                                            *ngFor="let itemc of item.host">{{itemc}}</th>
+                                                        <!-- <th class="text-dark font-medium fs-4">End Date</th> -->
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="latest-post-aside media">
+                            <div class="lpa-left media-body">
+                                <div class="lpa-title">
+                                    <h5>Topics</h5>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table align-middle text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-dark font-medium fs-4"
+                                                            *ngFor="let itemc of item.topics">{{itemc}}</th>
+                                                        <!-- <th class="text-dark font-medium fs-4">End Date</th> -->
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,6 +12,9 @@ import { NgbdnavBasicComponent } from './nav/nav.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from "./table/table.component";
+import { StoriesComponent } from './stories/stories.component';
+import { StoriyDetailsComponent } from './storiy-details/storiy-details.component';
+import { AddStoryComponent } from './add-story/add-story.component';
 
 @NgModule({
   imports: [
@@ -28,7 +31,10 @@ import { TableComponent } from "./table/table.component";
     NgbdnavBasicComponent,
     ButtonsComponent,
     CardsComponent,
-    TableComponent
-  ]
+    TableComponent,
+    StoriesComponent,
+    StoriyDetailsComponent,
+    AddStoryComponent
+  ],
 })
 export class ComponentsModule { }
