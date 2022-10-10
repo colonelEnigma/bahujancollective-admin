@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       let tokn = data.headers.get('auth-token') ? data.headers.get('auth-token')?.toString() : null;
       if (tokn) {
         localStorage.setItem('ACCESS_TOKEN', tokn);
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/component/stories');
       }
     });
   }

@@ -1,5 +1,9 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, Form } from "@angular/forms";
+import { Router } from '@angular/router';
+import { debounceTime, Subject } from 'rxjs';
+import { StoryService } from '../story.service';
 
 @Component({
   selector: 'app-add-story',
@@ -8,17 +12,28 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray, Form } from
 })
 export class AddStoryComponent implements OnInit {
   addNewStoryForm: FormGroup;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  private _success = new Subject<string>();
+  private _error = new Subject<string>();
 
   // addNewStoryForm: new FormGroup()
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private storyService: StoryService, private router: Router) { }
 
 
   ngOnInit(): void {
+    
+    this._success.subscribe(message => (this.successMessage = message));
+    this._success.pipe(debounceTime(5000)).subscribe(() => (this.successMessage = null));
+
+    this._error.subscribe(message => (this.errorMessage = message));
+    this._error.pipe(debounceTime(5000)).subscribe(() => (this.errorMessage = null));
+
     this.addNewStoryForm = this.fb.group({
       title: new FormControl('', Validators.required),
       subtitle: new FormControl('', Validators.required),
       about: this.fb.group({
-        title: new FormControl(''),
+        title: new FormControl('', Validators.required),
         description: new FormControl(''),
         startDate: new FormControl(''),
         endDate: new FormControl(''),
@@ -28,16 +43,6 @@ export class AddStoryComponent implements OnInit {
       registration: this.fb.group({
         title: new FormControl(''),
         events: this.fb.array([
-          // new FormGroup({
-          //   title: new FormControl(''),
-          //   regisrationStatus: new FormControl(''),
-          //   startDateTime: new FormControl(''),
-          //   endDateTime: new FormControl(''),
-          //   topics: new FormControl(''),
-          //   host: new FormControl(''),
-          //   coach: new FormControl(''),
-          //   link: new FormControl(''),
-          // })
         ])
       }),
       aditionalDetails: this.fb.group({
@@ -47,6 +52,14 @@ export class AddStoryComponent implements OnInit {
         ]),
       }),
     })
+  }
+
+  public changeSuccessMessage() {
+    this._success.next(`Page Added Successfully!`);
+  }
+
+  public changeErrorMessgae() {
+    this._error.next(`Error While Adding Page!`);
   }
 
 
@@ -68,8 +81,12 @@ export class AddStoryComponent implements OnInit {
         topics: this.fb.array([
           new FormControl('')
         ]),
-        host: new FormControl(''),
-        coach: new FormControl(''),
+        host: this.fb.array([
+          new FormControl('')
+        ]),
+        coach: this.fb.array([
+          new FormControl('')
+        ]),
         link: new FormControl(''),
       })
     );
@@ -96,46 +113,68 @@ export class AddStoryComponent implements OnInit {
 
 
   /**
- * for additonal details
+ * for event topics
  */
 
   topics(indx: number): FormArray {
     return this.events.at(indx).get('topics') as FormArray;
   }
 
-  addTopics(eventIndx: number){
+  addTopics(eventIndx: number) {
     this.topics(eventIndx).push(new FormControl(''));
   }
 
-  delTopic(eventIndx: number, topicIndx: number){
+  delTopic(eventIndx: number, topicIndx: number) {
     this.topics(eventIndx).removeAt(topicIndx);
   }
 
-  // topics(indx: number): FormArray {
-  //   // return this.addNewStoryForm.get('registration.events.topics') as FormArray;
-  //   // return this.events.get('topics') as FormArray;
-  //   return this.events.at(indx).get('topics') as FormArray;
-  // }
+
+  /**
+* for event hosts
+*/
+
+  hosts(indx: number): FormArray {
+    return this.events.at(indx).get('host') as FormArray;
+  }
+
+  addHosts(eventIndx: number) {
+    this.hosts(eventIndx).push(new FormControl(''));
+  }
+
+  delHost(eventIndx: number, hostIndx: number) {
+    this.hosts(eventIndx).removeAt(hostIndx);
+  }
 
 
+  /**
+* for event coach
+*/
 
-  // addTopic(indx: number) {
-  //   // const frmArr = this.events.controls[0].get('topics') as FormArray
-  //   this.topics(indx).push(new FormControl(''));
-  //   // frmArr.push(
-  //   //   new FormControl('')
-  //   // )
-  // }
+  coach(indx: number): FormArray {
+    return this.events.at(indx).get('coach') as FormArray;
+  }
 
-  // delTopic(indx: any) {
-  //   // this.topics.removeAt(indx);
-  // }
+  addCoach(eventIndx: number) {
+    this.coach(eventIndx).push(new FormControl(''));
+  }
 
-
+  delCoach(eventIndx: number, coachIndx: number) {
+    this.coach(eventIndx).removeAt(coachIndx);
+  }
 
 
   onSubmit() {
     console.warn(this.addNewStoryForm.value);
+    this.storyService.addStory(this.addNewStoryForm.value).subscribe((data: HttpResponse<any>) => {
+      if(!data){
+        this.changeErrorMessgae();
+      }else{
+        this.changeSuccessMessage();
+        this.router.navigateByUrl('/component/stories');
+      }
+      console.log("hahaha,,,", data);
+      
+    });
   }
 
 }

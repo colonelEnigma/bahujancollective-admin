@@ -36,6 +36,12 @@ export class StoryService {
     return this.http.get(urlPath);
   }
 
+  public addStory(data: any): Observable<HttpResponse<any>> {
+    let urlPath = `${this.baseUrl}${ApiPaths.StoryAdd}/`;
+
+    return this.http.post<any>(urlPath, data, { observe: 'response' });
+  }
+
 
   // setCLickedStoryObj(obj: any) {
   //   this.clickedStory = obj;
